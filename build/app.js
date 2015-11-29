@@ -5394,4 +5394,4 @@ console.log(welcome_string);
 window.web3 = new Web3();
 window.web3.setProvider(new Web3.providers.HttpProvider("http://localhost:8545"));
 Pudding.setWeb3(window.web3);
-Pudding.load([Example, Kibbutz], window);
+Pudding.load([Kibbutz], window);

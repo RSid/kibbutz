@@ -29,11 +29,11 @@ var factory = function factory(Pudding) {
   Kibbutz.abi = [{ "constant": true, "inputs": [], "name": "founder", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "uint256" }], "name": "members", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": false, "inputs": [], "name": "join", "outputs": [{ "name": "success", "type": "bool" }], "type": "function" }, { "constant": true, "inputs": [], "name": "heldAmount", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
   Kibbutz.binary = "606060405260008054600160a060020a031916331781556001908155600280549182018082559091908281838015829011605957818360005260206000209182019101605991905b80821115609557600081556001016047565b505050919090600052602060002090016000548154600160a060020a031916600160a060020a03919091161790555060c1806100996000396000f35b509056606060405260e060020a60003504634d853ee5811460385780635daf08ca146049578063b688a36314608d578063c934d4bd14609c575b005b60a4600054600160a060020a031681565b60a4600435600280548290811015600257506000527f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace0154600160a060020a031681565b60b76002805460009133916002565b60b760015481565b600160a060020a03166060908152602090f35b6060908152602090f3";
 
-  if ("0xc305c901078781c232a2a521c2af7980f8385ee9" != "") {
-    Kibbutz.address = "0xc305c901078781c232a2a521c2af7980f8385ee9";
+  if ("0xb46ef5a50681a9df51e0c31cfae5a4bb3614094a" != "") {
+    Kibbutz.address = "0xb46ef5a50681a9df51e0c31cfae5a4bb3614094a";
 
     // Backward compatibility; Deprecated.
-    Kibbutz.deployed_address = "0xc305c901078781c232a2a521c2af7980f8385ee9";
+    Kibbutz.deployed_address = "0xb46ef5a50681a9df51e0c31cfae5a4bb3614094a";
   }
 
   Kibbutz.generated_with = "1.0.2";
