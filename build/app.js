@@ -5382,12 +5382,103 @@ if (typeof module != "undefined") {
 }
 
 
+"use strict";
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var factory = function factory(Pudding) {
+  // Inherit from Pudding. The dependency on Babel sucks, but it's
+  // the easiest way to extend a Babel-based class. Note that the
+  // resulting .js file does not have a dependency on Babel.
+
+  var Kibbutz = (function (_Pudding) {
+    _inherits(Kibbutz, _Pudding);
+
+    function Kibbutz() {
+      _classCallCheck(this, Kibbutz);
+
+      _get(Object.getPrototypeOf(Kibbutz.prototype), "constructor", this).apply(this, arguments);
+    }
+
+    return Kibbutz;
+  })(Pudding);
+
+  ;
+
+  // Set up specific data for this class.
+  Kibbutz.abi = [{ "constant": false, "inputs": [{ "name": "newbie", "type": "address" }], "name": "join", "outputs": [{ "name": "index", "type": "uint256" }], "type": "function" }, { "constant": true, "inputs": [], "name": "founder", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "uint256" }], "name": "members", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": true, "inputs": [], "name": "heldAmount", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
+  Kibbutz.binary = "606060405260008054600160a060020a031916331781556001908155600280549182018082559091908281838015829011610067576000839052610067906000805160206102748339815191529081019083015b808211156100ec5760008155600101610053565b50505060009283525060208220018054600160a060020a031916339081179091556002805491929091811015610002578190526000805160206102748339815191528054600160a060020a0319168317905580546001810180835582908280158290116100f0576100f090600080516020610274833981519152908101908301610053565b5090565b505050815481101561000257600091825260208220018054600160a060020a0319169290921790915561014b90819061012990396000f300606060405260e060020a600035046328ffe6c8811461003c5780634d853ee5146100885780635daf08ca1461009a578063c934d4bd146100e0575b005b6100e960043560028054600181018083556000928492909182908280158290116101065781836000526020600020918201910161010691905b8082111561014757888155600101610075565b6100f3600054600160a060020a031681565b6100f360043560028054829081101561000257506000527f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace0154600160a060020a031681565b6100e960015481565b6060908152602090f35b600160a060020a03166060908152602090f35b5050508154811015610002579060005260206000209001600050805473ffffffffffffffffffffffffffffffffffffffff1916909117905550600254919050565b509056405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace";
+
+  if ("0x1d1322fc4b97e1f8317cfbef670778cb21ad76f1" != "") {
+    Kibbutz.address = "0x1d1322fc4b97e1f8317cfbef670778cb21ad76f1";
+
+    // Backward compatibility; Deprecated.
+    Kibbutz.deployed_address = "0x1d1322fc4b97e1f8317cfbef670778cb21ad76f1";
+  }
+
+  Kibbutz.generated_with = "1.0.2";
+  Kibbutz.contract_name = "Kibbutz";
+
+  return Kibbutz;
+};
+
+// Nicety for Node.
+factory.load = factory;
+
+if (typeof module != "undefined") {
+  module.exports = factory;
+} else {
+  // There will only be one version of Pudding in the browser,
+  // and we can use that.
+  window.Kibbutz = factory;
+};
+
 ;
 
 
 
-var welcome_string = "Hello from Truffle!";
-console.log(welcome_string);
+var held;
+var founder1;
+
+window.onload = function() {
+  var accounts = web3.eth.accounts;
+  var kibbutz = Kibbutz.at(Kibbutz.deployed_address);
+
+  Kibbutz.new({ from: accounts[0] }).then(
+    function(kibbutz) {
+      kibbutz.heldAmount.call().then(
+        function(heldAmount) {
+          makeHeldAmountHtml(heldAmount);
+          return kibbutz.founder.call();
+        }).then(
+          function(founder) {
+            makeFounderHtml(founder);
+            console.log("Members length: " + kibbutz.members.length);
+          });
+      });
+};
+
+function makeFounderHtml(founder) {
+  var hash = document.createElement("p");
+  var node = document.createTextNode(founder);
+  hash.appendChild(node);
+
+  var element = document.getElementById("founder");
+  element.appendChild(hash);
+}
+
+function makeHeldAmountHtml(heldAmount) {
+  var held = document.createElement("p");
+  var node = document.createTextNode(heldAmount);
+  held.appendChild(node);
+
+  var element = document.getElementById("heldAmount");
+  element.appendChild(held);
+}
 ;
 
 // Added by Truffle bootstrap.

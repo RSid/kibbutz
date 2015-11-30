@@ -3,16 +3,20 @@ contract Kibbutz {
   uint public heldAmount;
   address[] public members;
 
-  //constructor
   function Kibbutz() {
     founder = msg.sender;
     heldAmount = 0;
-    members.push(founder);
+    members.push(msg.sender);
+members[0] = msg.sender;
+members[members.length++] = msg.sender;
   }
 
-  function join() public returns (bool success) {
-    members[members.length] = msg.sender;
+  function joinNow(address newbie) public returns (uint index) {
 
-    return true;
+    members.push(newbie);
+members[0] = newbie;
+members[members.length++] = newbie;
+
+    return members.length;
   }
 }
