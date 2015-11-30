@@ -7,15 +7,12 @@ contract Kibbutz {
     founder = msg.sender;
     heldAmount = 0;
     members.push(msg.sender);
-members[0] = msg.sender;
-members[members.length++] = msg.sender;
+    //members[0] = msg.sender;
+    //members[members.length++] = msg.sender;
   }
 
   function joinNow(address newbie) public returns (uint index) {
-
     members.push(newbie);
-members[0] = newbie;
-members[members.length++] = newbie;
 
     return members.length;
   }
