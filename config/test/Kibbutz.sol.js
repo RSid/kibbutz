@@ -26,14 +26,14 @@ var factory = function factory(Pudding) {
   ;
 
   // Set up specific data for this class.
-  Kibbutz.abi = [{ "constant": true, "inputs": [], "name": "founder", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": true, "inputs": [], "name": "participants", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "constant": true, "inputs": [], "name": "heldAmount", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
-  Kibbutz.binary = "606060405260008054600160a060020a031916331781556001819055600255606680602a6000396000f3606060405260e060020a60003504634d853ee58114602e5780636c4470fb14604c578063c934d4bd146054575b005b605c60005473ffffffffffffffffffffffffffffffffffffffff1681565b605c60025481565b605c60015481565b6060908152602090f3";
+  Kibbutz.abi = [{ "constant": false, "inputs": [{ "name": "newbie", "type": "address" }], "name": "joinNow", "outputs": [{ "name": "index", "type": "uint256" }], "type": "function" }, { "constant": true, "inputs": [], "name": "founder", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "uint256" }], "name": "members", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": false, "inputs": [], "name": "getNumberOfMembers", "outputs": [{ "name": "membersLength", "type": "uint256" }], "type": "function" }, { "constant": true, "inputs": [], "name": "heldAmount", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
+  Kibbutz.binary = "606060405260008054600160a060020a031916331781556001908155600280549182018082559091908281838015829011605957818360005260206000209182019101605991905b80821115608b57600081556001016047565b505050919090600052602060002090016000508054600160a060020a03191633179055506101518061008f6000396000f35b509056606060405260e060020a600035046316563de481146100475780634d853ee5146100915780635daf08ca146100a35780638b73a46b146100e9578063c934d4bd146100f7575b005b6100ed6004356000600260005080548060010182818154818355818115116101135781836000526020600020918201910161011391905b8082111561014d5788815560010161007e565b610100600054600160a060020a031681565b61010060043560028054829081101561000257506000527f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace0154600160a060020a031681565b6002545b6060908152602090f35b6100ed60015481565b600160a060020a03166060908152602090f35b50505091909060005260206000209001600050805473ffffffffffffffffffffffffffffffffffffffff1916841790555050600254919050565b509056";
 
-  if ("0x6bf68d0470d58001ca16f7b86f8c21d075f18bda" != "") {
-    Kibbutz.address = "0x6bf68d0470d58001ca16f7b86f8c21d075f18bda";
+  if ("0x5148909c7f8e3a2426dca3b3cbebe9e870fdabeb" != "") {
+    Kibbutz.address = "0x5148909c7f8e3a2426dca3b3cbebe9e870fdabeb";
 
     // Backward compatibility; Deprecated.
-    Kibbutz.deployed_address = "0x6bf68d0470d58001ca16f7b86f8c21d075f18bda";
+    Kibbutz.deployed_address = "0x5148909c7f8e3a2426dca3b3cbebe9e870fdabeb";
   }
 
   Kibbutz.generated_with = "1.0.2";

@@ -1,12 +1,20 @@
 contract Kibbutz {
   address public founder;
   uint public heldAmount;
-  uint public participants;
+  address[] public members;
 
-  //constructor
   function Kibbutz() {
     founder = msg.sender;
     heldAmount = 0;
-    participants = 0;
+    members.push(msg.sender);
+  }
+
+  function joinNow(address newbie) public returns (uint index) {
+    members.push(newbie);
+    return members.length;
+  }
+
+  function getNumberOfMembers() public returns (uint membersLength) {
+    return members.length;
   }
 }
