@@ -1,6 +1,3 @@
-var held;
-var founder1;
-
 window.onload = function() {
   var accounts = web3.eth.accounts;
   var kibbutz = Kibbutz.at(Kibbutz.deployed_address);
@@ -14,8 +11,23 @@ window.onload = function() {
         }).then(
           function(founder) {
             makeFounderHtml(founder);
-            console.log("Members length: " + kibbutz.members.call().length);
-          });
+            return kibbutz.getNumberOfMembers.call();
+          }).then(
+              function(numberOfMembers) {
+                makeNumberOfMembersHtml(numberOfMembers['c'].length);
+                return numberOfMembers;
+            }).then(
+              function(numberOfMembers) {
+                for(i = 0; i < numberOfMembers; i++) {
+                  return kibbutz.members.call(i);
+                }
+              }
+            ).then(
+              function(member) {
+                console.log(member);
+                addMemberListItem(member);
+              }
+            );
       });
 };
 
@@ -35,4 +47,22 @@ function makeHeldAmountHtml(heldAmount) {
 
   var element = document.getElementById("heldAmount");
   element.appendChild(held);
+}
+
+function makeNumberOfMembersHtml(numberOfMembers) {
+  var number = document.createElement("p");
+  var node = document.createTextNode(numberOfMembers);
+  number.appendChild(node);
+
+  var element = document.getElementById("numberOfMembers");
+  element.appendChild(number);
+}
+
+function addMemberListItem(memberInfo) {
+  var member = document.createElement("li");
+  var node = document.createTextNode(memberInfo);
+  member.appendChild(node);
+
+  var element = document.getElementById("members");
+  element.appendChild(member);
 }

@@ -5410,14 +5410,14 @@ var factory = function factory(Pudding) {
   ;
 
   // Set up specific data for this class.
-  Kibbutz.abi = [{ "constant": false, "inputs": [{ "name": "newbie", "type": "address" }], "name": "join", "outputs": [{ "name": "index", "type": "uint256" }], "type": "function" }, { "constant": true, "inputs": [], "name": "founder", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "uint256" }], "name": "members", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": true, "inputs": [], "name": "heldAmount", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
-  Kibbutz.binary = "606060405260008054600160a060020a031916331781556001908155600280549182018082559091908281838015829011610067576000839052610067906000805160206102748339815191529081019083015b808211156100ec5760008155600101610053565b50505060009283525060208220018054600160a060020a031916339081179091556002805491929091811015610002578190526000805160206102748339815191528054600160a060020a0319168317905580546001810180835582908280158290116100f0576100f090600080516020610274833981519152908101908301610053565b5090565b505050815481101561000257600091825260208220018054600160a060020a0319169290921790915561014b90819061012990396000f300606060405260e060020a600035046328ffe6c8811461003c5780634d853ee5146100885780635daf08ca1461009a578063c934d4bd146100e0575b005b6100e960043560028054600181018083556000928492909182908280158290116101065781836000526020600020918201910161010691905b8082111561014757888155600101610075565b6100f3600054600160a060020a031681565b6100f360043560028054829081101561000257506000527f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace0154600160a060020a031681565b6100e960015481565b6060908152602090f35b600160a060020a03166060908152602090f35b5050508154811015610002579060005260206000209001600050805473ffffffffffffffffffffffffffffffffffffffff1916909117905550600254919050565b509056405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace";
+  Kibbutz.abi = [{ "constant": false, "inputs": [{ "name": "newbie", "type": "address" }], "name": "joinNow", "outputs": [{ "name": "index", "type": "uint256" }], "type": "function" }, { "constant": true, "inputs": [], "name": "founder", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "uint256" }], "name": "members", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": false, "inputs": [], "name": "getNumberOfMembers", "outputs": [{ "name": "membersLength", "type": "uint256" }], "type": "function" }, { "constant": true, "inputs": [], "name": "heldAmount", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
+  Kibbutz.binary = "606060405260008054600160a060020a031916331781556001908155600280549182018082559091908281838015829011605957818360005260206000209182019101605991905b80821115608b57600081556001016047565b505050919090600052602060002090016000508054600160a060020a031916331790555061017d8061008f6000396000f35b509056606060405260e060020a600035046316563de481146100475780634d853ee5146100ac5780635daf08ca146100be5780638b73a46b14610104578063c934d4bd14610110575b005b61011960043560006002600050805480600101828181548183558181151161014857828752610148907f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace9081019083015b8082111561010c5760008155600101610098565b61012b600054600160a060020a031681565b61012b60043560028054829081101561000257506000527f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace0154600160a060020a031681565b610119600254805b5090565b61011960015481565b60408051918252519081900360200190f35b60408051600160a060020a03929092168252519081900360200190f35b505050600092835250602090912001805473ffffffffffffffffffffffffffffffffffffffff1916909217909155506002549056";
 
-  if ("0x1d1322fc4b97e1f8317cfbef670778cb21ad76f1" != "") {
-    Kibbutz.address = "0x1d1322fc4b97e1f8317cfbef670778cb21ad76f1";
+  if ("0xbb17d6a9d1390493e948cb40da96ef42eedb57ca" != "") {
+    Kibbutz.address = "0xbb17d6a9d1390493e948cb40da96ef42eedb57ca";
 
     // Backward compatibility; Deprecated.
-    Kibbutz.deployed_address = "0x1d1322fc4b97e1f8317cfbef670778cb21ad76f1";
+    Kibbutz.deployed_address = "0xbb17d6a9d1390493e948cb40da96ef42eedb57ca";
   }
 
   Kibbutz.generated_with = "1.0.2";
@@ -5441,9 +5441,6 @@ if (typeof module != "undefined") {
 
 
 
-var held;
-var founder1;
-
 window.onload = function() {
   var accounts = web3.eth.accounts;
   var kibbutz = Kibbutz.at(Kibbutz.deployed_address);
@@ -5457,8 +5454,23 @@ window.onload = function() {
         }).then(
           function(founder) {
             makeFounderHtml(founder);
-            console.log("Members length: " + kibbutz.members.length);
-          });
+            return kibbutz.getNumberOfMembers.call();
+          }).then(
+              function(numberOfMembers) {
+                makeNumberOfMembersHtml(numberOfMembers['c'].length);
+                return numberOfMembers;
+            }).then(
+              function(numberOfMembers) {
+                for(i = 0; i < numberOfMembers; i++) {
+                  return kibbutz.members.call(i);
+                }
+              }
+            ).then(
+              function(member) {
+                console.log(member);
+                addMemberListItem(member);
+              }
+            );
       });
 };
 
@@ -5478,6 +5490,24 @@ function makeHeldAmountHtml(heldAmount) {
 
   var element = document.getElementById("heldAmount");
   element.appendChild(held);
+}
+
+function makeNumberOfMembersHtml(numberOfMembers) {
+  var number = document.createElement("p");
+  var node = document.createTextNode(numberOfMembers);
+  number.appendChild(node);
+
+  var element = document.getElementById("numberOfMembers");
+  element.appendChild(number);
+}
+
+function addMemberListItem(memberInfo) {
+  var member = document.createElement("li");
+  var node = document.createTextNode(memberInfo);
+  member.appendChild(node);
+
+  var element = document.getElementById("members");
+  element.appendChild(member);
 }
 ;
 
