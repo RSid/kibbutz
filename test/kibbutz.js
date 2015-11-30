@@ -13,7 +13,7 @@ contract('Kibbutz', function(accounts) {
           }).then( function(founder) {
             assert.equal(founder, accounts[0], "Founder doesn't match!");
         }).then( function() {
-          return kibbutz.members[0].call();
+          return kibbutz.members.call(0);
         }).then( function(members) {
           assert.equal(members, accounts[0], "Founder doesn't show up as member!")
           done();
@@ -28,10 +28,13 @@ contract('Kibbutz', function(accounts) {
       .then(function(kibbutz) {
         kibbutz.joinNow(accounts[1]).then(
           function() {
-            assert.equal(kibbutz.members.length, 2,
-              "The kibbutz doesn't have the right number of members!");
-            done();
-          }
+            return kibbutz.getNumberOfMembers.call();
+          }).then(
+            function(numberOfMembers) {
+              assert.equal(numberOfMembers, 2,
+                "The kibbutz doesn't have the right number of members!");
+              done();
+            }
         ).catch(done);
       }).catch(done);
     });

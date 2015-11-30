@@ -14,7 +14,7 @@ window.onload = function() {
         }).then(
           function(founder) {
             makeFounderHtml(founder);
-            console.log("Members length: " + kibbutz.members.length);
+            console.log("Members length: " + kibbutz.members.call().length);
           });
       });
 };
