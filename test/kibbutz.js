@@ -38,4 +38,25 @@ contract('Kibbutz', function(accounts) {
         ).catch(done);
       }).catch(done);
     });
+
+    it("Contributing to the kibbutz works", function(done) {
+      var kibbutz = Kibbutz.at(Kibbutz.deployed_address);
+
+      Kibbutz.new({ from: accounts[0]  })
+      .then(function(kibbutz) {
+        kibbutz.joinNow(accounts[1]).then(
+          function() {
+            return kibbutz.contribute({value: 7});
+          }).then(
+            function() {
+              return kibbutz.heldAmount.call()
+            }).then(
+            function(heldAmount) {
+              assert.equal(heldAmount, 7,
+                "The kibbutz doesn't have the right total amount held!");
+              done();
+            }
+        ).catch(done);
+      }).catch(done);
+    });
 });

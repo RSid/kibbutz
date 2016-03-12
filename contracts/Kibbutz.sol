@@ -17,4 +17,8 @@ contract Kibbutz {
   function getNumberOfMembers() public returns (uint membersLength) {
     return members.length;
   }
+
+  function contribute() {
+    heldAmount += msg.value;
+  }
 }
