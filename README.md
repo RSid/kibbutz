@@ -1,10 +1,10 @@
-## Kibbutz
+# Kibbutz
 [WIP]
 
 Ethereum-based commune contract, where members can join, contribute funds, and anyone can distribute the group's funds equally to all members at any time.
 
 
-#Dev Setup
+##Dev Setup
 
 1. Download and install [solc compiler] (https://github.com/ethereum/webthree-umbrella/wiki) for Solidity.
 2. Download and install your test RPC of choice. I'm using [testrpc](https://github.com/ConsenSys/eth-testrpc), which also requires Python and pip.
