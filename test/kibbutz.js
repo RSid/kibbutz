@@ -56,4 +56,22 @@ contract('Kibbutz', function(accounts) {
         ).catch(done);
       }).catch(done);
     });
+
+    it("Distributing to the kibbutz works", function(done) {
+      var kibbutz = Kibbutz.at(Kibbutz.deployed_address);
+
+      Kibbutz.new({ from: accounts[0]  })
+      .then(function(kibbutz) {
+        kibbutz.distribute().then(
+            function() {
+              return kibbutz.heldAmount.call()
+            }).then(
+            function(heldAmount) {
+              assert.equal(heldAmount, 0,
+                "The kibbutz didn't distribute all the money!");
+              done();
+            }
+        ).catch(done);
+      }).catch(done);
+    });
 });

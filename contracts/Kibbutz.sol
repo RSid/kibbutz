@@ -21,4 +21,13 @@ contract Kibbutz {
   function contribute() {
     heldAmount += msg.value;
   }
+
+  function distribute() public returns (uint payoutAmount){
+      var payOutAmount = 0;
+      payoutAmount = heldAmount / members.length;
+      for (var i = 0; i < members.length; i++){
+          members[i].send(payoutAmount);
+      }
+      return payoutAmount;
+  }
 }
