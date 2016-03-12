@@ -44,10 +44,7 @@ contract('Kibbutz', function(accounts) {
 
       Kibbutz.new({ from: accounts[0]  })
       .then(function(kibbutz) {
-        kibbutz.joinNow(accounts[1]).then(
-          function() {
-            return kibbutz.contribute({value: 7});
-          }).then(
+        kibbutz.contribute({value: 7}).then(
             function() {
               return kibbutz.heldAmount.call()
             }).then(
